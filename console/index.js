@@ -1,6 +1,9 @@
 'use strict';
 
 const smoochBot = require('smooch-bot');
+const dialogflow = require('dialogflow')
+const { Storage } = require('@google-cloud/storage');
+const uuid = require('uuid')
 const MemoryStore = smoochBot.MemoryStore;
 const MemoryLock = smoochBot.MemoryLock;
 const Bot = smoochBot.Bot;
@@ -34,7 +37,17 @@ const script = new Script({
             const name = message.text.trim();
             bot.setProp('name', name);
             return bot.say(`I'll call you ${name}! Great!`)
-                .then(() => 'finish');
+                .then(() => 'askWhatCanDo');
+        }
+    },
+
+    askWhatCanDo: {
+        prompt: (bot) => bot.say(`What can I do for you ${name}?`),
+        receive: (bot, message) => {
+            const answer = message.text.trim();
+            bot.setProp('answer', answer)
+            return bot.say(`Wait just a second..`)
+                .then(() => 'finish')
         }
     },
 
@@ -52,6 +65,42 @@ const script = new Script({
     }
 });
 
+async function runSample(projectId = 'k2agent-7a814', message){
+    //Authentication
+    const storage = new Storage();
+    storage.
+        getBuckets()
+        .then((results) => {
+            const buckets = results[0];
+            console.log("Buckets:");
+            buckets.foreach((bucket) => {
+                console.log(bucket.name);
+            })
+        })
+        .catch((err) => {
+            console.error('Error: ', err);
+        })
+
+    const sessionId = uuid.v4()
+
+    const sessionClient = new dialogflow.SessionsClient();
+    const sessionPath = sessionClient.sessionPath('k2agent-7a814', "c211a3f9552d432c8178d2fd75956f4a");
+
+    const request = {
+        session: sessionPath,
+        queryInput: {
+            text: message,
+            languageCode: 'en-US'
+        }
+    };
+
+    const responses = await sessionClient.detectIntent(request);
+    console.log('Detected intent');
+    const result = responses[0].queryResult;
+
+    return result.queryText;
+}
+
 const userId = 'testUserId';
 const store = new MemoryStore();
 const lock = new MemoryLock();
@@ -68,11 +117,16 @@ const stateMachine = new StateMachine({
 });
 
 process.stdin.on('data', function(data) {
-    stateMachine.receiveMessage({
-        text: data.toString().trim()
-    })
+    runSample('k2agent-7a814', data.toString().trim()).then((result) => {
+        stateMachine.receiveMessage({
+            text: result
+        })
         .catch((err) => {
             console.error(err);
             console.error(err.stack);
         });
+    }).catch((err) => {
+        console.error(err);
+        console.error(err.stack);
+    });
 });
