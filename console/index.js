@@ -67,13 +67,17 @@ const script = new Script({
 
 async function runSample(projectId = 'k2agent-7a814', message){
     //Authentication
-    const storage = new Storage();
+    process.env.GOOGLE_APPLICATION_CREDENTIALS = "/Users/brunopardini/Documents/SmoochWebhook/k2agent-7a814-38020ccf4144.json"
+
+    const storage = new Storage({
+        keyFilename: '/Users/brunopardini/Documents/SmoochWebhook/k2agent-7a814-38020ccf4144.json'
+    });
     storage.
         getBuckets()
         .then((results) => {
             const buckets = results[0];
             console.log("Buckets:");
-            buckets.foreach((bucket) => {
+            buckets.forEach((bucket) => {
                 console.log(bucket.name);
             })
         })
@@ -81,16 +85,18 @@ async function runSample(projectId = 'k2agent-7a814', message){
             console.error('Error: ', err);
         })
 
-    const sessionId = uuid.v4()
+    const sessionId = uuid.v4();
 
     const sessionClient = new dialogflow.SessionsClient();
-    const sessionPath = sessionClient.sessionPath('k2agent-7a814', "c211a3f9552d432c8178d2fd75956f4a");
+    const sessionPath = sessionClient.sessionPath(projectId, "d61973bcd0264746b88d0aed5bbdd6a5");
 
     const request = {
         session: sessionPath,
         queryInput: {
-            text: message,
-            languageCode: 'en-US'
+            text:{
+                text: message,
+                languageCode: 'en-US'
+            }
         }
     };
 
@@ -98,7 +104,7 @@ async function runSample(projectId = 'k2agent-7a814', message){
     console.log('Detected intent');
     const result = responses[0].queryResult;
 
-    return result.queryText;
+    return result.fulfillmentText;
 }
 
 const userId = 'testUserId';
@@ -118,13 +124,14 @@ const stateMachine = new StateMachine({
 
 process.stdin.on('data', function(data) {
     runSample('k2agent-7a814', data.toString().trim()).then((result) => {
-        stateMachine.receiveMessage({
-            text: result
-        })
-        .catch((err) => {
-            console.error(err);
-            console.error(err.stack);
-        });
+        console.log(result);
+        // stateMachine.receiveMessage({
+        //     text: result
+        // })
+        // .catch((err) => {
+        //     console.error(err);
+        //     console.error(err.stack);
+        // });
     }).catch((err) => {
         console.error(err);
         console.error(err.stack);

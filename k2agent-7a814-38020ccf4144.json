@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "k2agent-7a814",
+  "private_key_id": "38020ccf4144eb072810e8f51b59e616bff184cb",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCw23GPpVOVchgI\n+L8AUkZuqHiumb/aAtLxtPMNVdKDTCIrU5hPhwdQxP6khzlvUhSFgVHc8Al4hNQJ\nHFJso6Qp0DgfePpMPWIqWUgapBSucvZ/cENra29vecWJPVKh/DBPROPmrTtgAEDv\nrtjQxRPlyrqxo606FKmVuBnSZFumWVndxEXR5PFQdc7rVB26q7rb4tUcDyIOxuW/\ndu0cPy2gBVN6klWi4Q4oxD0fFiccRiJVUurdaQVyStkAwDRapkecflZ2DLnfckki\nvnjWuf8OfyWuJK3wj49ZcZN4aVr7CgAbesqWO4nFdtBgVWqy1k54IEIcqUeoL4+P\nKlLNq0g3AgMBAAECggEAFnDHGF6g8W3YW428e+efT5E0PECpVZoAIXKVWH7S8Z1V\nGexHKj125ypn09aN/3BfHDrheUhChgv3SkSmt2mNffoRSk+zwBLAhEvEg2TdyZja\nwCbYLHwlrUkP5dm7GhoBbegkMXPk/HRryOiFqE/UC4H4GGwtTG5XakuW3dmla2uQ\nDe24v17I/xzTEnuRN7RRy2+KCDpfYevurHEPZOBQWIn1TTGOOTNPN/d7SNi2EkGx\nljjdgdFU9QRdpFU8PSG3E8j5vKA4953y8iJLaVN8qZipBsDHPmD+ljSusKQmwjnU\nEYPktDBKSqTFJM96LfZWDWKGRx8S+sF/RxboLZbjCQKBgQDqk+4I2B4r2R5ASxd6\ny576D3IebLEVzrug5Lvaj6k3utcY+1VVnSVDowPBFbb2KTs1M0DTUdNITd1JhrXp\nheV+lFiVjUK5WFvCz5DVH/wDBGefVZ/t5NbpQJXEvAfjZf3wScTlWY1oIYvzK747\nJIgKmCNSC3KA05ra0J/YqXt41QKBgQDBAhf0RLD+sFoBBleX0nwuL6lDErBOzIHq\n5gwilxpR7/yzLkxG+sx0HChLgklGTho7PObJErd3RP/FKkzFWFnqPnYY5+hmTwfV\nRBtLk7jNfVJLkwGdhTkwSTbH/oMqJ+pyC1y8DdiCB+/WWm1UEF4rn+/aqW+vbbZv\ndZrd/lRC2wKBgE0EJpnWwwkobsszHFFfuyFkotYkX3vGdUnc72RR2IAIowh7tEe4\noXx0cA4b4AcwAFV2L2lyKwlJL0ctqFo0cOW/NNpdF7Qcs3vhhC7FIounDZJ9nVWQ\n1ZKdds6x4XEikl4rCi822LuAkB9VlE58rwGzc51DTuPHFceTyXdsJbLFAoGBAJux\n16b5npnlosU+23wilIAhfHYZ5lW6jXby2okwwU+lu4DDcU601Cc565t13ywypuBw\ncW90hMFWzMi9Ja7wZaAbgOL4eLXHPPdh+G7QHHzPgopqbRwnswlrliBhBGgGSQ50\ncftVY/kI9AVDbvwoM/8XBsKqeejXJRrmkOZRWqGPAoGAPSXd6Q8arlZR6dXYARdk\nLF+0HPkq8EDAiZbQWNeJF6rEIPFQ9mP1eR5AYWB+XD5WqOQb8cGGx7uXooWB0Rgy\n+iKcdT7CAmZ+SdW9rC5xZ9ydb4WCIx/s+YsPmr0ijaZu52wfH9o7wsaL9dF+NzbD\nkqQIb52Z6ZNi/N7LcxT1W60=\n-----END PRIVATE KEY-----\n",
+  "client_email": "dialogflowsmoochbot@k2agent-7a814.iam.gserviceaccount.com",
+  "client_id": "101885193911004562843",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/dialogflowsmoochbot%40k2agent-7a814.iam.gserviceaccount.com"
+}
