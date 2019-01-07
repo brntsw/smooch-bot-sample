@@ -22,16 +22,26 @@ module.exports = new Script({
             return bot.setProp('name', name)
                 .then(() => bot.say(`Great! I'll call you ${name}
 Is that OK? %[Yes](postback:yes) %[No](postback:no)`))
-                .then(() => 'finish');
+                .then(() => 'askWhatWant');
         }
     },
 
-    finish: {
+    askWhatWant: {
+        prompt: (bot) => bot.say('What can I do for you?'),
         receive: (bot, message) => {
-            return bot.getProp('name')
-                .then((name) => bot.say(`Sorry ${name}, my creator didn't ` +
-                        'teach me how to do anything else!'))
-                .then(() => 'finish');
+            const answer = message.text;
+            return bot.setProp('asnwer', answer)
+                .then(() => bot.say(`Your answer: ${answer}`))
+                .then(() => 'askWhatWant')
         }
     }
+
+    // finish: {
+    //     prompt: (bot) => bot.say('What can I do for you?'),
+    //     receive: (bot, message) => {
+    //         return bot.getProp('name')
+    //             .then((name) => bot.say(`Alright ${name}, let me check..`))
+    //             .then(() => 'finish');
+    //     }
+    // }
 });
