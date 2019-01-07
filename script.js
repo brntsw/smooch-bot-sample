@@ -21,13 +21,12 @@ module.exports = new Script({
             const name = message.text;
             return bot.setProp('name', name)
                 .then(() => bot.say(`Great! I'll call you ${name}
-Is that OK? %[Yes](postback:yes) %[No](postback:no)`))
+What can I do for you?`))
                 .then(() => 'askWhatWant');
         }
     },
 
     askWhatWant: {
-        prompt: (bot) => bot.say('What can I do for you?'),
         receive: (bot, message) => {
             const answer = message.text;
             return bot.setProp('asnwer', answer)
