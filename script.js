@@ -22,11 +22,11 @@ module.exports = new Script({
             return bot.setProp('name', name)
                 .then(() => bot.say(`Great! I'll call you ${name}
 What can I do for you?`))
-                .then(() => 'askWhatWant');
+                .then(() => 'finish');
         }
     },
 
-    askWhatWant: {
+    finish: {
         receive: (bot, message) => {
             const answer = message.text;
             return bot.setProp('asnwer', answer)
