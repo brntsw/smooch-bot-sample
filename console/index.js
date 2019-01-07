@@ -116,11 +116,11 @@ const bot = new ConsoleBot({
     userId
 });
 
-const stateMachine = new StateMachine({
-    script,
-    bot,
-    userId
-});
+// const stateMachine = new StateMachine({
+//     script,
+//     bot,
+//     userId
+// });
 
 process.stdin.on('data', function(data) {
     runSample('k2agent-7a814', data.toString().trim()).then((result) => {
