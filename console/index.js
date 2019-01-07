@@ -32,22 +32,35 @@ const script = new Script({
     },
 
     askName: {
-        prompt: (bot) => bot.say('What\'s your name?'),
+        prompt: (bot) => bot.say('What\'s your name'),
         receive: (bot, message) => {
-            const name = message.text;
-            return bot.setProp('name', name)
-                .then(() => bot.say(`Great! I'll call you ${name}
-What can I do for you?`))
-                .then(() => 'askWhatWant');
+            const name = message.text.trim();
+            bot.setProp('name', name);
+            return bot.say(`I'll call you ${name}! Great!`)
+                .then(() => 'askWhatCanDo');
         }
     },
 
-    askWhatWant: {
+    askWhatCanDo: {
+        prompt: (bot) => bot.say(`What can I do for you ${name}?`),
         receive: (bot, message) => {
-            const answer = message.text;
-            return bot.setProp('asnwer', answer)
-                .then(() => bot.say(`Your answer: ${answer}`))
-                .then(() => 'askWhatWant')
+            const answer = message.text.trim();
+            bot.setProp('answer', answer)
+            return bot.say(`Wait just a second..`)
+                .then(() => 'finish')
+        }
+    },
+
+// TODO Implement a function to integrate with DialogFlow.
+    //Send the data like done on the Android app, which obtain a callback with the response and, after receiving the text from DialogFlow, it sends back to Smooch and it
+    //sends back to the customer channel
+
+    finish: {
+        receive: (bot, message) => {
+            return bot.getProp('name')
+                .then((name) => bot.say(`Sorry ${name}, my creator didn't ` +
+                        'teach me how to do anything else!'))
+                .then(() => 'finish');
         }
     }
 });
@@ -103,31 +116,24 @@ const bot = new ConsoleBot({
     userId
 });
 
-const stateMachine = new StateMachine({
-    script,
-    bot,
-    userId
-});
+// const stateMachine = new StateMachine({
+//     script,
+//     bot,
+//     userId
+// });
 
 process.stdin.on('data', function(data) {
-    stateMachine.receiveMessage({
-        text: data.toString().trim()
-    })
-        .catch((err) => {
-            console.error(err);
-            console.error(err.stack);
-        });
-    // runSample('k2agent-7a814', data.toString().trim()).then((result) => {
-    //     console.log(result);
-    //     stateMachine.receiveMessage({
-    //         text: result
-    //     })
-    //     .catch((err) => {
-    //         console.error(err);
-    //         console.error(err.stack);
-    //     });
-    // }).catch((err) => {
-    //     console.error(err);
-    //     console.error(err.stack);
-    // });
+    runSample('k2agent-7a814', data.toString().trim()).then((result) => {
+        console.log(result);
+        // stateMachine.receiveMessage({
+        //     text: result
+        // })
+        // .catch((err) => {
+        //     console.error(err);
+        //     console.error(err.stack);
+        // });
+    }).catch((err) => {
+        console.error(err);
+        console.error(err.stack);
+    });
 });

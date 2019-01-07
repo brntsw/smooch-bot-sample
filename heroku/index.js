@@ -106,14 +106,61 @@ function handleMessages(req, res) {
         });
 }
 
+async function runSample(projectId = 'k2agent-7a814', message){
+    //Authentication
+    process.env.GOOGLE_APPLICATION_CREDENTIALS = "/Users/brunopardini/Documents/SmoochWebhook/k2agent-7a814-38020ccf4144.json"
+
+    const storage = new Storage({
+        keyFilename: '/Users/brunopardini/Documents/SmoochWebhook/k2agent-7a814-38020ccf4144.json'
+    });
+    storage.
+        getBuckets()
+        .then((results) => {
+            const buckets = results[0];
+            console.log("Buckets:");
+            buckets.forEach((bucket) => {
+                console.log(bucket.name);
+            })
+        })
+        .catch((err) => {
+            console.error('Error: ', err);
+        })
+
+    const sessionId = uuid.v4();
+
+    const sessionClient = new dialogflow.SessionsClient();
+    const sessionPath = sessionClient.sessionPath(projectId, "d61973bcd0264746b88d0aed5bbdd6a5");
+
+    const request = {
+        session: sessionPath,
+        queryInput: {
+            text:{
+                text: message,
+                languageCode: 'en-US'
+            }
+        }
+    };
+
+    const responses = await sessionClient.detectIntent(request);
+    console.log('Detected intent');
+    const result = responses[0].queryResult;
+
+    return result.fulfillmentText;
+}
+
 function handlePostback(req, res) {
     const postback = req.body.postbacks[0];
     if (!postback || !postback.action) {
         res.end();
     }
 
-    createBot(req.body.appUser).say(`You said: ${postback.action.text} (payload was: ${postback.action.payload})`)
+    runSample('k2agent-7a814', data.toString().trim()).then((result) => {
+        createBot(req.body.appUser).say(result)
         .then(() => res.end());
+    }).catch((err) => {
+        console.error(err);
+        console.error(err.stack);
+    });
 }
 
 app.post('/webhook', function(req, res, next) {
