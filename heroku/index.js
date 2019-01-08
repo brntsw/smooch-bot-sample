@@ -150,9 +150,9 @@ async function runSample(projectId = 'k2agent-7a814', message){
 
 function handlePostback(req, res) {
     const postback = req.body.postbacks[0];
-    if (!postback || !postback.action) {
-        res.end();
-    }
+    // if (!postback || !postback.action) {
+    //     res.end();
+    // }
 
     runSample('k2agent-7a814', data.toString().trim()).then((result) => {
         createBot(req.body.appUser).say(result)
