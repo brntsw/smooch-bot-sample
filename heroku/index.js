@@ -118,10 +118,10 @@ function handleMessages(req, res) {
 
 async function runSample(projectId = 'k2agent-7a814', message){
     //Authentication
-    process.env.GOOGLE_APPLICATION_CREDENTIALS = "https://smooch-sample-bot.herokuapp.com/k2agent-7a814-38020ccf4144.json"
+    process.env.GOOGLE_APPLICATION_CREDENTIALS = "k2agent-7a814-38020ccf4144.json"
 
     const storage = new Storage({
-        keyFilename: 'https://smooch-sample-bot.herokuapp.com/k2agent-7a814-38020ccf4144.json'
+        keyFilename: 'k2agent-7a814-38020ccf4144.json'
     });
     storage.
         getBuckets()
