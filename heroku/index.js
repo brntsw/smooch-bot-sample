@@ -136,7 +136,7 @@ async function runSample(projectId = 'k2agent-7a814', message){
             console.error('Error: ', err);
         })
 
-    const sessionId = uuid.v4();
+    // const sessionId = uuid.v4();
 
     const sessionClient = new dialogflow.SessionsClient();
     const sessionPath = sessionClient.sessionPath(projectId, "d61973bcd0264746b88d0aed5bbdd6a5");
