@@ -94,7 +94,7 @@ function handleMessages(req, res) {
         return res.end();
     }
 
-    console.log(`This is what you said: ${messages[0]}`);
+    console.log(`This is what you said: ${messages[0].text}`);
 
     // const stateMachine = new StateMachine({
     //     script,
