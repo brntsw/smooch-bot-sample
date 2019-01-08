@@ -92,18 +92,26 @@ function handleMessages(req, res) {
         return res.end();
     }
 
-    const stateMachine = new StateMachine({
-        script,
-        bot: createBot(req.body.appUser)
-    });
+    // const stateMachine = new StateMachine({
+    //     script,
+    //     bot: createBot(req.body.appUser)
+    // });
 
-    stateMachine.receiveMessage(messages[0])
-        .then(() => res.end())
-        .catch((err) => {
-            console.error('SmoochBot error:', err);
-            console.error(err.stack);
-            res.end();
-        });
+    // stateMachine.receiveMessage(messages[0])
+    //     .then(() => res.end())
+    //     .catch((err) => {
+    //         console.error('SmoochBot error:', err);
+    //         console.error(err.stack);
+    //         res.end();
+    //     });
+
+    runSample('k2agent-7a814', messages[0]).then((result) => {
+        createBot(req.body.appUser).say(result)
+        .then(() => res.end());
+    }).catch((err) => {
+        console.error(err);
+        console.error(err.stack);
+    });
 }
 
 async function runSample(projectId = 'k2agent-7a814', message){
@@ -166,20 +174,18 @@ function handlePostback(req, res) {
 app.post('/webhook', function(req, res, next) {
     const trigger = req.body.trigger;
 
-    handlePostback(req, res);
+    switch (trigger) {
+        case 'message:appUser':
+            handleMessages(req, res);
+            break;
 
-    // switch (trigger) {
-    //     case 'message:appUser':
-    //         handleMessages(req, res);
-    //         break;
+        case 'postback':
+            handlePostback(req, res);
+            break;
 
-    //     case 'postback':
-    //         handlePostback(req, res);
-    //         break;
-
-    //     default:
-    //         console.log('Ignoring unknown webhook trigger:', trigger);
-    // }
+        default:
+            console.log('Ignoring unknown webhook trigger:', trigger);
+    }
 });
 
 var server = app.listen(process.env.PORT || 8000, function() {
