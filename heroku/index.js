@@ -11,6 +11,7 @@ const app = require('../app');
 const script = require('../script');
 const SmoochCore = require('smooch-core');
 const jwt = require('../jwt');
+const util = require('util')
 
 const name = 'SmoochBot';
 const avatarUrl = 'https://s.gravatar.com/avatar/f91b04087e0125153623a3778e819c0a?s=80';
@@ -94,7 +95,7 @@ function handleMessages(req, res) {
         return res.end();
     }
 
-    console.log(`This is what you said: ${messages[0].text}`);
+    console.log(util.inspect(messages[0], false, null, true /* enable colors */))
 
     // const stateMachine = new StateMachine({
     //     script,
