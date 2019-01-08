@@ -31,7 +31,7 @@ What can I do for you?`))
             const answer = message.text;
             return bot.setProp('asnwer', answer)
                 .then(() => bot.say(`Your answer: ${answer}`))
-                .then(() => 'askWhatWant')
+                .then(() => 'finish')
         }
     }
 
