@@ -154,33 +154,32 @@ function handlePostback(req, res) {
         res.end();
     }
 
-    createBot(req.body.appUser).say("This is a handlePostback")
+    runSample('k2agent-7a814', postback.action.text.trim()).then((result) => {
+        createBot(req.body.appUser).say(result)
         .then(() => res.end());
-
-    // runSample('k2agent-7a814', data.toString().trim()).then((result) => {
-    //     createBot(req.body.appUser).say(result)
-    //     .then(() => res.end());
-    // }).catch((err) => {
-    //     console.error(err);
-    //     console.error(err.stack);
-    // });
+    }).catch((err) => {
+        console.error(err);
+        console.error(err.stack);
+    });
 }
 
 app.post('/webhook', function(req, res, next) {
     const trigger = req.body.trigger;
 
-    switch (trigger) {
-        case 'message:appUser':
-            handleMessages(req, res);
-            break;
+    handlePostback(req, res);
 
-        case 'postback':
-            handlePostback(req, res);
-            break;
+    // switch (trigger) {
+    //     case 'message:appUser':
+    //         handleMessages(req, res);
+    //         break;
 
-        default:
-            console.log('Ignoring unknown webhook trigger:', trigger);
-    }
+    //     case 'postback':
+    //         handlePostback(req, res);
+    //         break;
+
+    //     default:
+    //         console.log('Ignoring unknown webhook trigger:', trigger);
+    // }
 });
 
 var server = app.listen(process.env.PORT || 8000, function() {
