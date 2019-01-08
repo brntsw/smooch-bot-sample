@@ -94,6 +94,8 @@ function handleMessages(req, res) {
         return res.end();
     }
 
+    console.log(`This is what you said: ${messages[0]}`);
+
     // const stateMachine = new StateMachine({
     //     script,
     //     bot: createBot(req.body.appUser)
@@ -118,6 +120,7 @@ function handleMessages(req, res) {
 
 async function runSample(projectId = 'k2agent-7a814', message){
     //Authentication
+    process.env.GOOGLE_CLOUD_PROJECT = "k2agent-7a814"
     process.env.GOOGLE_APPLICATION_CREDENTIALS = "k2agent-7a814-38020ccf4144.json"
 
     const storage = new Storage({
