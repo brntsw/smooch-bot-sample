@@ -1,6 +1,8 @@
 'use strict';
 
 const smoochBot = require('smooch-bot');
+const dialogflow = require('dialogflow')
+const { Storage } = require('@google-cloud/storage');
 const MemoryLock = smoochBot.MemoryLock;
 const SmoochApiStore = smoochBot.SmoochApiStore;
 const SmoochApiBot = smoochBot.SmoochApiBot;
