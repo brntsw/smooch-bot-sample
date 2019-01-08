@@ -110,7 +110,7 @@ function handleMessages(req, res) {
     //         res.end();
     //     });
 
-    runSample('k2agent-7a814', messages[0]).then((result) => {
+    runSample('k2agent-7a814', messages[0].text).then((result) => {
         createBot(req.body.appUser).say(result)
         .then(() => res.end());
     }).catch((err) => {
